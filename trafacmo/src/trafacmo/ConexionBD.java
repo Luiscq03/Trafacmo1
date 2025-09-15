@@ -7,6 +7,7 @@ package trafacmo;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -32,6 +33,7 @@ public class ConexionBD {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 // Crea la conexión a la base de datos
                 conn = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
+                System.out.println("Conexión correcta");
             } catch (ClassNotFoundException | SQLException e) {
                 // Manejo de errores
                 e.printStackTrace();
