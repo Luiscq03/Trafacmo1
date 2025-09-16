@@ -33,14 +33,29 @@ public class frmcliente extends javax.swing.JInternalFrame {
         // Deshabilitar los botones Guardar y Deshacer
         btnGuardar.setEnabled(false);
         btnAtras.setEnabled(false);
-        txtId.setEnabled(false);
+        deshabilitarCampos(esNuevo);
+        
+        DaCliente.mostrarDatos(modelo);
+    }
+    private void deshabilitarCampos(boolean estado) {
+    txtId.setEnabled(false);
         txtNom.setEnabled(false);
         txtRuc.setEnabled(false);
         txtDni.setEnabled(false);
         txtTel.setEnabled(false);
         txtDire.setEnabled(false);
         txtEmail.setEnabled(false);
-    }
+}
+    
+    private void habilitarCampos(boolean estado) {
+    txtId.setEnabled(true);
+        txtNom.setEnabled(true);
+        txtRuc.setEnabled(true);
+        txtDni.setEnabled(true);
+        txtTel.setEnabled(true);
+        txtDire.setEnabled(true);
+        txtEmail.setEnabled(true);
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -141,6 +156,11 @@ public class frmcliente extends javax.swing.JInternalFrame {
         });
 
         btnBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/borrar.png"))); // NOI18N
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarActionPerformed(evt);
+            }
+        });
 
         btnAgregar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/+_1.png"))); // NOI18N
         btnAgregar1.addActionListener(new java.awt.event.ActionListener() {
@@ -228,10 +248,10 @@ public class frmcliente extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
+                    .addComponent(btnGuardar)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtRuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel9)
-                        .addComponent(btnGuardar)
                         .addComponent(btnAgregar1))
                     .addComponent(btnBorrar)
                     .addComponent(btnAtras))
@@ -249,6 +269,11 @@ public class frmcliente extends javax.swing.JInternalFrame {
 
             }
         ));
+        tablecli.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablecliMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablecli);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -317,13 +342,7 @@ public class frmcliente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         btnGuardar.setEnabled(true);
         btnAtras.setEnabled(true);
-        txtId.setEnabled(true);
-        txtNom.setEnabled(true);
-        txtRuc.setEnabled(true);
-        txtDni.setEnabled(true);
-        txtTel.setEnabled(true);
-        txtDire.setEnabled(true);
-        txtEmail.setEnabled(true);
+        habilitarCampos(esNuevo);
     }//GEN-LAST:event_btnAgregar1ActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -342,13 +361,41 @@ public class frmcliente extends javax.swing.JInternalFrame {
     if (cliente.getId().isEmpty() || cliente.getNombre().isEmpty()) {
         JOptionPane.showMessageDialog(null, "Completar bien los campos");
         return;
+        
     }
 
     // Guardar (insertar o actualizar)
     DaCliente.guardarCliente(cliente, tablecli);
-
+    DaCliente.limpiarCampos(jPanel2);
+        deshabilitarCampos(esNuevo);
+        btnGuardar.setEnabled(false);
+        btnAtras.setEnabled(false);
+        
     JOptionPane.showMessageDialog(null, "Datos guardados correctamente");
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void tablecliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablecliMouseClicked
+        // TODO add your handling code here:
+         int fila = tablecli.getSelectedRow();
+        if (fila >= 0) {
+            txtId.setText(tablecli.getValueAt(fila, 0).toString());
+            txtNom.setText(tablecli.getValueAt(fila, 1).toString());
+            txtRuc.setText(tablecli.getValueAt(fila, 2).toString());
+            txtDni.setText(tablecli.getValueAt(fila, 3).toString());
+            txtTel.setText(tablecli.getValueAt(fila, 4).toString());
+            txtEmail.setText(tablecli.getValueAt(fila, 5).toString());
+            txtDire.setText(tablecli.getValueAt(fila, 6).toString());
+        }
+    }//GEN-LAST:event_tablecliMouseClicked
+
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+        // TODO add your handling code here:
+         DaCliente.eliminarCliente(tablecli);
+         DaCliente.limpiarCampos(jPanel2);
+         deshabilitarCampos(esNuevo);
+         btnBorrar.setEnabled(false);
+         btnAtras.setEnabled(false);
+    }//GEN-LAST:event_btnBorrarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -356,10 +403,8 @@ public class frmcliente extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -367,9 +412,7 @@ public class frmcliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;

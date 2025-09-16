@@ -103,5 +103,48 @@ public class DaCliente {
         JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
+    
+    public static void eliminarCliente(JTable tabla) {
+    try {
+        // Obtener el índice de la fila seleccionada
+        int fila = tabla.getSelectedRow();
+
+        if (fila >= 0) {
+            String[] options = {"Sí", "No", "Cancelar"};
+            int opcion = JOptionPane.showOptionDialog(
+                null,
+                "¿Está seguro de que quiere eliminar este cliente?",
+                "Confirmación",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[2]
+            );
+
+            if (opcion == JOptionPane.YES_OPTION) {
+                // Obtener el ID de la fila seleccionada (columna 0)
+                String id = tabla.getModel().getValueAt(fila, 0).toString();
+
+                // Ejecutar el procedimiento almacenado
+                CallableStatement stmt = conn.prepareCall("{ CALL eliminar_cliente(?) }");
+                stmt.setString(1, id);
+                stmt.execute();
+
+                // Actualizar JTable (eliminando fila seleccionada)
+                DefaultTableModel model = (DefaultTableModel) tabla.getModel();
+                model.removeRow(fila);
+
+                JOptionPane.showMessageDialog(null, "Cliente eliminado correctamente");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar un cliente para eliminar.");
+        }
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
 
 }
