@@ -348,6 +348,8 @@ public class frmcliente extends javax.swing.JInternalFrame {
         btnGuardar.setEnabled(true);
         btnAtras.setEnabled(true);
         habilitarCampos(esNuevo);
+        btnAgregar1.setEnabled(false);
+        btnBorrar.setEnabled(false);
     }//GEN-LAST:event_btnAgregar1ActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -407,6 +409,11 @@ public class frmcliente extends javax.swing.JInternalFrame {
         DaCliente.limpiarCampos(rootPane);
         DaCliente.Habilitar(jPanel2, false);
         tablecli.clearSelection();
+        deshabilitarCampos(esNuevo);
+        btnGuardar.setEnabled(false);
+        btnAtras.setEnabled(false);
+        btnAgregar1.setEnabled(true);
+        btnBorrar.setEnabled(true);
     }//GEN-LAST:event_btnAtrasActionPerformed
 
 
