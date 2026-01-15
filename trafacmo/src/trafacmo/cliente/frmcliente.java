@@ -170,6 +170,11 @@ public class frmcliente extends javax.swing.JInternalFrame {
         });
 
         btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/atras.png"))); // NOI18N
+        btnAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtrasActionPerformed(evt);
+            }
+        });
 
         jLabel10.setText("Email:");
 
@@ -396,6 +401,13 @@ public class frmcliente extends javax.swing.JInternalFrame {
          btnBorrar.setEnabled(false);
          btnAtras.setEnabled(false);
     }//GEN-LAST:event_btnBorrarActionPerformed
+
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
+        // TODO add your handling code here:
+        DaCliente.limpiarCampos(rootPane);
+        DaCliente.Habilitar(jPanel2, false);
+        tablecli.clearSelection();
+    }//GEN-LAST:event_btnAtrasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

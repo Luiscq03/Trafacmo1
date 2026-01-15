@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -30,6 +31,24 @@ public class DaCliente {
                 ((JTextField) componente).setText("");
             } else if (componente instanceof Container) {
                 limpiarCampos((Container) componente);
+            }
+        }
+    }
+    public static void Habilitar(Container contenedor,  boolean bloquear) {
+        Component[] components = contenedor.getComponents();
+        for (Component component : components) {
+            if (component instanceof JTextField jTextField) {
+                jTextField.setEnabled(bloquear);
+            
+            } else if (component instanceof JButton jButton) {
+                String button = jButton.getName();
+                if (button.equals("guardar") || button.equals("deshacer")) {
+                    jButton.setEnabled(bloquear);
+                } else if (button.equals("agregar") || button.equals("editar") || button.equals("eliminar"))  {
+                    jButton.setEnabled(!bloquear); // aplicar logica inversa
+                }
+            } else {
+                // No hace nada para otros tipos de componentes
             }
         }
     }

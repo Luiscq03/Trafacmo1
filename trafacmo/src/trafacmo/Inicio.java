@@ -83,6 +83,11 @@ public class Inicio extends javax.swing.JFrame {
         jLabel2.setName(""); // NOI18N
 
         txtusuario.setText("administrador");
+        txtusuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtusuarioActionPerformed(evt);
+            }
+        });
         txtusuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtusuarioKeyTyped(evt);
@@ -189,6 +194,10 @@ public class Inicio extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtusuarioKeyTyped
+
+    private void txtusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtusuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtusuarioActionPerformed
 
     /**
      * @param args the command line arguments
